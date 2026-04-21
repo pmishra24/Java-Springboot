@@ -38,4 +38,14 @@ public class JobController {
     public Job updateJob(@PathVariable Long id, @RequestBody Job job){
         return jobService.updateJob(id, job);
     }
+
+    @GetMapping("/location/{location}")
+    public List<Job> findByLocation(@PathVariable String location){
+        return jobService.findByLocation(location);
+    }
+
+    @GetMapping("/salary/{salary}")
+    public List<Job> findBySalaryGreaterThanEqual(@PathVariable int salary){
+        return jobService.findBySalaryGreaterThanEqual(salary);
+    }
 }

@@ -38,4 +38,14 @@ public class JobService {
         existingJob.setSalary(job.getSalary());
         return jobRepository.save(existingJob);
     }
+
+    public List<Job> findByLocation(String location){
+        return jobRepository.findByLocation(location);
+    }
+
+    public List<Job> findBySalaryGreaterThanEqual(int salary){
+            List<Job> jobs  = jobRepository.findBySalaryGreaterThanEqual(salary);
+            jobs.removeIf(x -> (x.getSalary() < salary));
+            return jobs;
+    }
 }
