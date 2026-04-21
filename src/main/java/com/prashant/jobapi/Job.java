@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class Job {
@@ -12,9 +15,16 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title is required")
     private String title;
+
+    @NotBlank(message = "Company is required")
     private String company;
+
+    @NotBlank(message = "Location is required")
     private String location;
+
+    @Min(value = 0, message = "Salary must be positive")
     private int salary;
 
     public long getId() {

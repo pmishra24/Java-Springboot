@@ -1,5 +1,6 @@
 package com.prashant.jobapi;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +24,10 @@ public class JobController {
 
     @GetMapping("/{id}")
     public Job getJobById(@PathVariable Long id){
-        return jobService.getJobsById(id).orElseThrow(() -> new RuntimeException("Job not found"));
+        return jobService.getJobsById(id).orElseThrow(() -> new JobNotFoundException("Job not found " + id));
     }
     @PostMapping
-    public Job createJob(@RequestBody Job job){
+    public Job createJob(@Valid @RequestBody Job job){
         return jobService.createJob(job);
     }
     @DeleteMapping("/{id}")

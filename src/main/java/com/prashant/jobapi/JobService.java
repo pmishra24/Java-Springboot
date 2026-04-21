@@ -31,7 +31,7 @@ public class JobService {
     }
 
     public Job updateJob(Long id, Job job){
-        Job existingJob = getJobsById(id).orElseThrow(() -> new RuntimeException("Job not found"));
+        Job existingJob = getJobsById(id).orElseThrow(() -> new JobNotFoundException("Job not found " + id));
         existingJob.setTitle(job.getTitle());
         existingJob.setCompany(job.getCompany());
         existingJob.setLocation(job.getLocation());
