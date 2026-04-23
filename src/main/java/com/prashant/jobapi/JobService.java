@@ -3,6 +3,7 @@ package com.prashant.jobapi;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,16 +15,16 @@ public class JobService {
         this.jobRepository = jobRepository;
     }
 
-    public List<Job> getJobs(){
-        return jobRepository.findAll();
+    public List<JobDTO> getJobs(){
+        return jobRepository.findAll().stream().map(this :: convertToDTO).toList();
     }
 
     public Optional<Job> getJobsById(Long id){
         return jobRepository.findById(id);
     }
 
-    public Job createJob(Job job){
-         return jobRepository.save(job);
+    public JobDTO createJob(JobRequestDTO jobRequestDTO){
+         return convertToDTO(jobRepository.save(convertToEntity(jobRequestDTO)));
     }
 
     public void deleteJob(Long id){
@@ -47,5 +48,18 @@ public class JobService {
             List<Job> jobs  = jobRepository.findBySalaryGreaterThanEqual(salary);
             jobs.removeIf(x -> (x.getSalary() < salary));
             return jobs;
+    }
+
+    public JobDTO convertToDTO(Job job) {
+        return new JobDTO(job);
+    }
+
+    public Job convertToEntity(JobRequestDTO jobRequestDTO) {
+        Job job = new Job();
+        job.setSalary(jobRequestDTO.getSalary());
+        job.setLocation(jobRequestDTO.getLocation());
+        job.setCompany(jobRequestDTO.getCompany());
+        job.setTitle(jobRequestDTO.getJobTitle());
+        return job;
     }
 }
