@@ -24,7 +24,7 @@ public class JobController {
 
     @GetMapping("/{id}")
     public Job getJobById(@PathVariable Long id){
-        return jobService.getJobsById(id).orElseThrow(() -> new JobNotFoundException("Job not found " + id));
+        return jobService.getJobsById(id).orElseThrow(() -> new NotFoundException("Job not found " + id));
     }
     @PostMapping
     public Job createJob(@Valid @RequestBody Job job){

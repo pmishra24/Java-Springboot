@@ -20,10 +20,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST) ;
     }
 
-    @ExceptionHandler(JobNotFoundException.class)
-    public  ResponseEntity<Map<String, String>>handleJobNothFoundException(JobNotFoundException ex){
+    @ExceptionHandler(NotFoundException.class)
+    public  ResponseEntity<Map<String, String>> handleNotFoundException(NotFoundException ex){
         Map<String, String> errors = new HashMap<>();
         errors.put("Error", ex.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
+
+
 }
