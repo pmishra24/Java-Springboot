@@ -1,5 +1,7 @@
 package com.prashant.jobapi;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -61,5 +63,15 @@ public class JobService {
         job.setCompany(jobRequestDTO.getCompany());
         job.setTitle(jobRequestDTO.getJobTitle());
         return job;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("JobService starting...");
+    }
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println("JobService shutting down...");
     }
 }
