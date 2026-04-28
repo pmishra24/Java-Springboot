@@ -1,10 +1,9 @@
 package com.prashant.jobapi;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 @Entity
 public class Skill {
@@ -16,6 +15,17 @@ public class Skill {
     @NotBlank(message = "Name cannot be empty")
     private String name;
     private String category;
+
+    @ManyToMany(mappedBy = "skillList")
+    private List<Job> jobList;
+
+    public List<Job> getJobList() {
+        return jobList;
+    }
+
+    public void setJobList(List<Job> jobList) {
+        this.jobList = jobList;
+    }
 
     public String getName() {
         return name;
@@ -32,4 +42,5 @@ public class Skill {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }

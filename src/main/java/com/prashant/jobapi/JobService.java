@@ -2,6 +2,9 @@ package com.prashant.jobapi;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -12,10 +15,16 @@ import java.util.Optional;
 @Service
 public class JobService {
     private final JobRepository jobRepository;
+    private ObjectFactory<JobReport> jobReportObjectFactory;
+
+    public void generateReport(){
+        JobReport jobReport = jobReportObjectFactory.getObject();
+    }
 
     public JobService(JobRepository jobRepository){
         this.jobRepository = jobRepository;
     }
+
 
     public List<JobDTO> getJobs(){
         return jobRepository.findAll().stream().map(this :: convertToDTO).toList();

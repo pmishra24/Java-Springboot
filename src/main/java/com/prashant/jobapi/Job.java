@@ -1,11 +1,10 @@
 package com.prashant.jobapi;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 
 @Entity
@@ -26,6 +25,18 @@ public class Job {
 
     @Min(value = 0, message = "Salary must be positive")
     private int salary;
+
+    @ManyToMany
+    @JoinTable(name = "job_skill", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private List<Skill> skillList;
+
+    public List<Skill> getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(List<Skill> skillList) {
+        this.skillList = skillList;
+    }
 
     public long getId() {
         return id;
