@@ -78,4 +78,9 @@ public class Job {
         this.salary = salary;
     }
 
+    public void addSkill(Skill skill) {
+        this.skillList.add(skill);
+        skill.updateJobList(this);
+    }
+
 }

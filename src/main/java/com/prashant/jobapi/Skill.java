@@ -43,4 +43,8 @@ public class Skill {
         this.category = category;
     }
 
+    public void updateJobList(Job job){
+        this.jobList.add(job);
+    }
+
 }
